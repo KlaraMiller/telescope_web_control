@@ -1,0 +1,19 @@
+
+body {
+    background-color: black;
+    color: white;
+}
+
+.star-card-header {
+    padding: 0px;
+    background-color: black;
+}
+
+.star-card {
+    background-color: black;
+}
+
+.star-collapse {
+    background-color: white;
+    border-radius: .25rem;
+}

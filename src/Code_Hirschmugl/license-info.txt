@@ -1,0 +1,63 @@
+==============================================================================
+
+This Software is written by "Christoph Polster" for the purpose of providing
+information regarding the position of oberservable bodies in the night sky
+(mainly the Moon and aritficial satellites) to other projects or Bachelor 
+theses of the "FH Joanneum" as part of his own Bachelor thesis.
+
+==============================================================================
+
+This Software uses code (sgp4) provided by "Brandon Rhodes" under the 
+"MIT License". 
+
+For more information on Brandon Rhodes' code refer to
+ * https://pypi.org/project/sgp4/
+ * the "sgp4/PKG-INFO" file
+
+==============================================================================
+
+The "MIT License" (regarding the use of Brandon Rhodes' code) as obtained 
+from https://opensource.org/licenses/MIT
+
+
+Copyright <YEAR> <COPYRIGHT HOLDER>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy 
+of this software and associated documentation files (the "Software"), to deal 
+in the Software without restriction, including without limitation the rights 
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
+copies of the Software, and to permit persons to whom the Software is 
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all 
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
+THE SOFTWARE.
+
+==============================================================================
+
+NOTE: The SL (Starlist in STAR_Starlist) is created from the document
+http://www.pas.rochester.edu/~emamajek/WGSN/IAU-CSN.txt
+
+# "IAU Catalog of Star Names (IAU-CSN)"
+# IAU Division C Working Group on Star Names (WGSN)
+# https://www.iau.org/science/scientific_bodies/working_groups/280/
+# WGSN Chair: Eric Mamajek. Email questions or comments to: IAUWGSN@gmail.com
+# Last updated 2018-09-07 (see notes on latest edits at end of file)
+#
+# For use of the contents of the data of this file, we encourage users
+# to refer to the (identical) official IAU version of the data at:
+# https://www.iau.org/public/themes/naming_stars/. All IAU-produced
+# products (Images, Videos, Texts) are released under Creative Commons
+# Attribution (i.e. free to use in all perpetuity, world-wide, as long
+# as the source is mentioned). Row (4) IDs require reading file with
+# text encoding set to UTF-8. Etymological information for each star
+# will be added in late 2018.
+
+==============================================================================

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {% include 'welcome/css.html' %}
+    <title>Welcome Page</title>
+
+</head>
+<body>
+    <!-- Menu Header -->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Stargate</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sensors">Sensors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/telescope">Telescope</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+{% block content %}
+{% endblock %}
+
+
+{% include 'welcome/js.html' %}
+{% block script %}
+{% endblock %}
+
+</body>
+</html>

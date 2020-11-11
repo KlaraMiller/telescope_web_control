@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Telescope Control</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'welcome/style.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'telescope/style.css' %}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+
+    <style>
+        .fakeimg {
+            height: 200px;
+            background: #aaa;
+        }
+    </style>
+</head>
+<body>
+<!-- Menu Header -->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">Stargate</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/sensors">Sensors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/telescope">Telescope</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Main Section -->
+<div class="container p-3 my-5 bg-black text-white" style="margin-top:30px" >
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Align Telescope</h3>
+            <div class="container p-3 bg-black">
+                <!--   ################################# ALIGN TELESCOPE LEFT SIDE ############################################### -->
+
+
+                <!--   ******************* Set Polaris *****************-->
+                <button class="btn btn-secondary btn-block" type="button" data-toggle="collapse" data-target="#set_polaris" aria-expanded="false" aria-controls="set_polaris">
+                    Set Polaris
+                </button>
+                <div class="collapse" id="set_polaris">
+                    <div class="card card-body text-black" style="color:black">
+                        Align the telescope to the north star with the manual motor control. When the star is in the middle of the camera image, press the button to confirm the position of the north star.
+                        <p></p>
+                        <button type="button" onclick="setPolaris()" class="btn btn-dark">Confirm</button>
+                    </div>
+                </div>
+                <hr />
+                <!--   ******************* 3-star-alignment *****************-->
+                <h5>3-Star-Alignment</h5>
+                <div id="accordion" style="color:black">
+                    <div class="card star-card">
+                        <div class="card-header star-card-header" data-toggle="tooltip" data-placement="right" title="To adjust the telescopes accuracy, a 3-star-alignment must be performed. For each selected star the telescope will automatically go to the object. If necessary, manual corrections can be made before confirming its position.">
+                            <button class="btn btn-secondary btn-block" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Star 1
+                            </button>
+                        </div>
+                        <div id="collapseOne" class="collapse star-collapse" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="input-group">
+                                    <select class="custom-select" id="star1" aria-label="Example select with button addon">
+                                        <option selected>Choose a star...</option>
+                                        <option value="1">Aldebaran</option>
+                                        <option value="2">Acamar</option>
+                                        <option value="3">Boteln</option>
+                                        <option value="4">Capella</option>
+                                        <option value="5">Errai</option>
+                                        <option value="6">Enif</option>
+                                        <option value="7">Hamal</option>
+                                        <option value="8">Marsic</option>
+                                        <option value="9">Naos</option>
+                                        <option value="10">Polaris</option>
+                                        <option value="11">Procyon</option>
+                                        <option value="13">Regulus</option>
+                                        <option value="14">Rukbat</option>
+                                        <option value="15">Salm</option>
+                                        <option value="16">Sirius</option>
+                                        <option value="17">Vega</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button onclick="submitStar('star1')" class="btn btn-outline-secondary" type="button">Go To</button>
+                                    </div>
+                                </div>
+                                <p></p>
+                                Use manual motor control to correct the position, if necessary. Press confirm when star is in the middle of the camera frame.
+                                <p></p>
+                                <div class="text-center">
+                                    <button type="button" onclick="clearTarget()" class="btn btn-dark btn-block">Confirm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card star-card">
+                        <div class="card-header star-card-header" data-toggle="tooltip" data-placement="right" title="To adjust the telescopes accuracy, a 3-star-alignment must be performed. For each selected star the telescope will automatically go to the object. If necessary, manual corrections can be made before confirming its position.">
+                            <button class="btn btn-secondary btn-block" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                                Star 2
+                            </button>
+                        </div>
+                        <div id="collapseTwo" class="collapse star-collapse" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="input-group">
+                                    <select class="custom-select" id="star2" aria-label="Example select with button addon">
+                                        <option selected>Choose a star...</option>
+                                        <option value="1">Aldebaran</option>
+                                        <option value="2">Acamar</option>
+                                        <option value="3">Boteln</option>
+                                        <option value="4">Capella</option>
+                                        <option value="5">Errai</option>
+                                        <option value="6">Enif</option>
+                                        <option value="7">Hamal</option>
+                                        <option value="8">Marsic</option>
+                                        <option value="9">Naos</option>
+                                        <option value="10">Polaris</option>
+                                        <option value="11">Procyon</option>
+                                        <option value="13">Regulus</option>
+                                        <option value="14">Rukbat</option>
+                                        <option value="15">Salm</option>
+                                        <option value="16">Sirius</option>
+                                        <option value="17">Vega</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button onclick="submitStar('star2')" class="btn btn-outline-secondary" type="button">Go To</button>
+                                    </div>
+                                </div>
+                                <p></p>
+                                Use manual motor control to correct the position, if necessary. Press confirm when star is in the middle of the camera frame.
+                                <p></p>
+                                <div class="text-center">
+                                    <button type="button" onclick="clearTarget()" class="btn btn-dark btn-block">Confirm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card star-card">
+                        <div class="card-header star-card-header" data-toggle="tooltip" data-placement="right" title="To adjust the telescopes accuracy, a 3-star-alignment must be performed. For each selected star the telescope will automatically go to the object. If necessary, manual corrections can be made before confirming its position.">
+                            <button class="btn btn-secondary btn-block" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseOne">
+                                Star 3
+                            </button>
+                        </div>
+                        <div id="collapseThree" class="collapse star-collapse" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="input-group">
+                                    <select class="custom-select" id="star3" aria-label="Example select with button addon">
+                                        <option selected>Choose a star...</option>
+                                        <option value="1">Aldebaran</option>
+                                        <option value="2">Acamar</option>
+                                        <option value="3">Boteln</option>
+                                        <option value="4">Capella</option>
+                                        <option value="5">Errai</option>
+                                        <option value="6">Enif</option>
+                                        <option value="7">Hamal</option>
+                                        <option value="8">Marsic</option>
+                                        <option value="9">Naos</option>
+                                        <option value="10">Polaris</option>
+                                        <option value="11">Procyon</option>
+                                        <option value="13">Regulus</option>
+                                        <option value="14">Rukbat</option>
+                                        <option value="15">Salm</option>
+                                        <option value="16">Sirius</option>
+                                        <option value="17">Vega</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button onclick="submitStar('star3')" class="btn btn-outline-secondary" type="button">Go To</button>
+                                    </div>
+                                </div>
+                                <p></p>
+                                Use manual motor control to correct the position, if necessary. Press confirm when star is in the middle of the camera frame.
+                                <p></p>
+                                <div class="text-center">
+                                    <button type="button" onclick="clearTarget()" class="btn btn-dark btn-block">Confirm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
+
+
+                <!--   ******************* Go to *****************-->
+                <h5>Observe Object</h5>
+                <button class="btn btn-secondary btn-block" type="button" data-toggle="collapse" data-target="#go_to" aria-expanded="false" aria-controls="collapseExample">
+                    Go To
+                </button>
+                <div class="collapse" id="go_to">
+                    <div class="card card-body text-black" style="color:black">
+                        Select a celestial object to observe
+                        <select id="goToSelectBox" class="selectpicker" data-live-search="true">
+                            <!-- Separator = sat and moon = -->
+                            <optgroup label="sat and moon">
+                                <option>moon</option>
+                                <option>iss</option>
+                            </optgroup>
+                            <!-- = planets = -->
+                            <optgroup label="planets">
+                                <option>mars</option>
+                                <option>venus</option>
+                                <option>mars</option>
+                            </optgroup>
+                            <!-- = star = -->
+                            <optgroup label="stars">
+                                <option>Vega</option>
+                                <option>Enif</option>
+                                <option>Boteln</option>
+                            </optgroup>
+                        </select>
+                        <p></p>
+                        <button type="button" onclick="startObservation()" class="btn btn-success">Start Observation</button>
+                        <p></p>
+                        <button type="button" onclick="clearTarget()" class="btn btn-dark">Stop Observation</button>
+
+                    </div>
+                </div>
+                <hr />
+
+
+                <!--   ################################################################################ -->
+            </div>
+        </div>
+        <!-- 2.Colomn-->
+        <div class="col-md-8">
+            <!-- Camera-->
+            <h3>Camera <a onclick="refresh_image()" href="#">🔄</a></h3>
+            <canvas id="camera-canvas" width="640" height="480" class="img-fluid" alt="Camera image"></canvas>
+            <p> </p>
+            <br>
+            <h3>Manual Motor Control</h3>
+            <!-- Motor Control Buttons-->
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-header">Control Motor</div>
+                <div class="card-body">
+                    <button type="button" onclick="btn_west()" class="btn btn-secondary btn-lg">West</button>
+                    <div class="btn-group-vertical btn-group-lg">
+                        <button type="button" onclick="btn_north()" class="btn btn-secondary">North</button>
+                        <p> </p>
+                        <button type="button" onclick="btn_south()" class="btn btn-secondary">South</button>
+                    </div>
+                    <button type="button" onclick="btn_east()" class="btn btn-secondary btn-lg">East</button>
+                </div>
+                <p> </p>
+
+            </div>
+            <!-- Motor Data -->
+
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-header">Motor Data</div>
+                <div class="card-body">
+                    <div id="motor-data"><pre class="motor-data-table">
+<!--Right Ascension-->
+<!--Setpoint    :	–-->
+<!--Degree      :	- -->
+<!--Setpoint Steps:	- -->
+<!--Actual Value Steps: - -->
+<!--Direction:	    - -->
+            </pre></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+
+<!-- Footer -->
+<div class="footer-copyright text-center bg-dark py-3 small" style="margin:0px;padding:1px">
+    <p>Ⓒ 2020 Copyright: FH Joanneum Graz</p>
+</div>
+
+<!-- hidden image, used to draw canvas on page load -->
+{% load static %}
+<img style="display:none" id="placeholder-image" src="{% static 'telescope/images/moon-bw_small.jpeg' %}" class="img-fluid">
+
+<!-- JS JavaScripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.js"></script>
+
+<script>
+
+    // other scripts
+    function submitStar(id) {
+        var starSelectBox = document.getElementById(id)
+        var star = starSelectBox.options[starSelectBox.selectedIndex].text // find text value of selected option (star name)
+        console.log(star) // write to JavaScript console
+        socket.send('{"command": "alignment", "star_nr": "' + id + '", "target": "' + star + '"}')
+
+    }
+
+    function startObservation() {
+        var goToSelectBox = document.getElementById('goToSelectBox')
+        var target = goToSelectBox.options[goToSelectBox.selectedIndex].text
+        var category = $('select#goToSelectBox option:selected').closest('optgroup').attr('label')
+        console.log("Target: " + target + ", which is in category " + category) // write to JavaScript console
+        socket.send('{"command": "observation", "star_nr": null, "target": "' + target + '"}')
+
+    }
+
+    function setPolaris() {
+        socket.send('{"command": "set_polaris"}')
+    }
+
+    function clearTarget() {
+        socket.send('{"command": "stop_observation"}')
+    }
+
+    function isJson(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
+}
+
+    // websocket sripts
+    var motorDataContainer = $("#motor-data")
+    // var motorData = null
+
+    var endpoint = 'ws://' + window.location.host + window.location.pathname
+    var socket = new ReconnectingWebSocket(endpoint)
+
+    function btn_west(){
+        socket.send('{"command": "move_motor", "direction": "west"}')
+    }
+    function btn_north(){
+        socket.send('{"command": "move_motor", "direction": "north"}')
+    }
+    function btn_south(){
+        socket.send('{"command": "move_motor", "direction": "south"}')
+    }
+    function btn_east(){
+        socket.send('{"command": "move_motor", "direction": "east"}')
+    }
+
+    // image test
+    function refresh_image(){
+        socket.send('{"command": "refresh_image"}')
+    }
+
+    // load fake image into canvas on load
+    var cameraCanvas = document.getElementById("camera-canvas");
+    var ctx = cameraCanvas.getContext('2d');
+    var placeholderImage = document.getElementById("placeholder-image");
+    placeholderImage.onload = function () {
+        ctx.drawImage(placeholderImage,0,0);
+    }
+
+
+
+    function formatMotorData(motorData){
+        return "<pre class=\"motor-data-table\">\n\t\t\tR. Ascension\tDeclination"
+            + "\nSetpoint:\t\t" + motorData.ra_sp.toFixed(6) + "\t" + motorData.dec_sp.toFixed(6)
+            + "\nDegree:\t\t\t" + motorData.ra_deg.toFixed(6) + "\t" + motorData.dec_deg.toFixed(6)
+            + "\nSetpoint Steps:\t\t" + motorData.ra_sp_steps + "\t\t" + motorData.dec_sp_steps
+            + "\nActual Value Steps:\t" + motorData.ra_av + "\t\t" + motorData.dec_av
+            + "\nDirection:\t\t" + motorData.ra_dir + "\t\t" + motorData.dec_dir
+            + "</pre>"
+    }
+
+    // receive messages from consumers.py and from sensor-data channel (loop.py), JavaScript Funktionen
+    socket.onmessage = function(e){
+        console.log("message", e)
+        if (isJson(e.data)) {
+            var data = JSON.parse(e.data)     // extracting data from message
+            if (data.command == "refresh_motor_data") {
+                motorDataContainer.html(formatMotorData(JSON.parse(data.motorData)))
+            }
+            else if (data.command == "placeholder_motor_data") {
+                console.log(data)
+                motorDataContainer.html(formatMotorData(data.motorData))
+            }
+            else if (data.command == "refresh_image") {
+                //var cameraCanvas = document.getElementById("camera-canvas"); --> these vars are defined further up to load the fake image
+                //var ctx = cameraCanvas.getContext('2d');
+                var updatedImage = new Image();
+                updatedImage.src = "data:image/jpg;base64," + data.imageDataAsString;
+                updatedImage.onload = function () {
+                    ctx.drawImage(updatedImage,0,0);
+                }
+            }
+        } else {
+            console.log("e.data doesn't contain valid JSON!")
+        }
+    }
+
+    // connect to consumers.py (python code)
+    socket.onopen = function(e){
+        console.log("open", e)
+    }
+    socket.onerror = function(e){
+        console.log("error", e)
+    }
+    // disconnect to consumers.py
+    socket.onclose = function(e){
+        console.log("close", e)
+    }
+
+</script>
+</body>
+</html>

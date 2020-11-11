@@ -1,0 +1,24 @@
+{% extends "welcome/base.html" %}
+
+{% block content %}
+
+    <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+        <div class="container">
+          <div class="inner cover">
+            <h1 class="cover-heading">SKYWATCHER - Telescope Web Control</h1>
+            <p class="lead">Welcome! This website is a tool to control the Skywatcher Telescope from FH Joanneum Graz.</p>
+            {% load static %}
+            <div style="text-align: center; padding-bottom: 15px; padding-top: 15px;">
+                <img src="{% static 'welcome/images/Logo6.png' %}" style="max-width: 250px" alt="Camera image">
+            </div>
+              <p> </p>
+            <p class="lead">
+              <a href="/sensors" class="btn btn-lg btn-default">Get started!</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

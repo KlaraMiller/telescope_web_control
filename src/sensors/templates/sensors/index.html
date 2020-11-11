@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Sensors</title>
+</head>
+<body>
+    <h1>Sensors</h1>
+    <h2>PMOD Nav sensor data:</h2>
+    <div id="nav-data-container" style="width: 700px">
+        <div style="float: left; min-width: 300px" id="nav-data-live"></div>
+        <div style="float: right" id="nav-data-stored"></div>
+    </div>
+    <div style="padding: 20px" id="nav-links">
+        <p><a href="#" onclick="refreshSensorData()">Refresh</a></p>
+        <p><a href="#" onclick="storeNavData()">-> Store nav data</a></p>
+    </div>
+
+    <h2>PMOD GPS sensor data:</h2>
+    <div id="gps-data-container" style="width: 700px">
+        <div style="float: left; min-width: 300px" id="gps-data-live"></div>
+        <div style="float: right" id="gps-data-stored"></div>
+    </div>
+    <div style="padding: 20px" id="gps-links">
+        <p><a href="#" onclick="refreshSensorData()">Refresh</a></p>
+        <p><a href="#" onclick="storeGPSData()">-> Store GPS data</a></p>
+    </div>
+
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="//stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.js"></script>
+
+<script>
+// websocket scripts
+var navDataLiveContainer = $("#nav-data-live")
+var navDataStoredContainer = $("#nav-data-stored")
+var navData = null
+
+var gpsDataLiveContainer = $("#gps-data-live")
+var gpsDataStoredContainer = $("#gps-data-stored")
+var gpsData = null
+
+var endpoint = 'ws://' + window.location.host + window.location.pathname
+var socket = new ReconnectingWebSocket(endpoint)
+
+function refreshSensorData(){
+    socket.send('refreshSensorData')
+}
+
+function storeNavData(){
+    socket.send('{"command": "storeNavData", "nav":' + JSON.stringify(navData) + '}')
+    navDataStoredContainer.html(formatNavData(navData))
+}
+
+function storeGPSData(){
+    socket.send('{"command": "storeGPSData", "gps":' + JSON.stringify(gpsData) + '}')
+    gpsDataStoredContainer.html(formatGPSData(gpsData))
+}
+
+function formatNavData(data){
+    return "<pre style='font-size: 12px'>ACCELEROMETER DATA\nX axis (deg):\t" + data.acc_xAngle
+        + "\nY axis (deg):\t" + data.acc_yAngle
+        + "\nZ axis (deg):\t" + data.acc_zAngle
+        + "\n\nCOMPASS:\nDirection:\t" + data.direction
+        + "</pre>"
+}
+
+function formatGPSData(data){
+    return "<pre style='font-size: 12px'>GPS DATA\nMode:\t\t" + data.mode
+        + "\nSatellites:\t" + data.sats
+        + "\nLatitude:\t" + data.lat
+        + "\nLongitude:\t" + data.lon
+        + "\nTrack:\t" + data.track
+        + "\nTime:\t" + data.time
+        + "</pre>"
+}
+
+// receive messages from consumers.py and from sensor-data channel (loop.py)
+socket.onmessage = function(e){
+    //Todo: clean up code here, should parse the message first and check what to do > ist command 'refreshSensorData' ?
+    console.log("message", e)
+    navData = JSON.parse(e.data).nav
+    navDataLiveContainer.html(formatNavData(navData))
+    gpsData = JSON.parse(e.data).gps
+    gpsDataLiveContainer.html(formatGPSData(gpsData))
+}
+socket.onopen = function(e){
+    console.log("open", e)
+    refreshSensorData()
+}
+socket.onerror = function(e){
+    console.log("error", e)
+}
+socket.onclose = function(e){
+    console.log("close", e)
+}
+
+</script>
+</body>
+</html>
