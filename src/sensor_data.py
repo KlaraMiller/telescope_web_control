@@ -120,6 +120,7 @@ def get_compass3(x, y):
             d = d
     return d
 
+
 def sensor_read(acc, mag, mode, kill, data):
     while not kill:
         acc_x = acc_y = acc_z = 0
@@ -144,31 +145,32 @@ def sensor_read(acc, mag, mode, kill, data):
 
 def get_gps_data(gps_resp):
     dict = {
-        'mode': str(gps_resp.mode),
-        'sats': str(gps_resp.sats)
+        'mode': str(gps_resp.mode or '–'),
+        'sats': str(gps_resp.sats or '–')
     }
 
     if gps_resp.mode >= 2:
-        dict['lat'] = str(gps_resp.lat)
-        dict['lon'] = str(gps_resp.lon)
-        dict['track'] = str(gps_resp.track)
-        dict['hspeed'] = str(gps_resp.hspeed)
-        dict['time'] = str(gps_resp.time)
-        dict['error'] = str(gps_resp.error)
-        dict['position'] = str(gps_resp.position())
-        dict['speed'] = str(gps_resp.speed())
-        dict['position_precision'] = str(gps_resp.position_precision())
+        dict['lat'] = str(gps_resp.lat or '–')
+        dict['lon'] = str(gps_resp.lon or '–')
+        dict['track'] = str(gps_resp.track or '–')
+        dict['hspeed'] = str(gps_resp.hspeed or '–')
+        dict['time'] = str(gps_resp.time or '–')
+        dict['error'] = str(gps_resp.error or '–')
+        dict['position'] = str(gps_resp.position() or '–')
+        dict['speed'] = str(gps_resp.speed() or '–')
+        dict['position_precision'] = str(gps_resp.position_precision() or '–')
         #dict['time_utc'] = str(gps_resp.time_utc())
         #dict['time_local'] = str(gps_resp.time_local())
-        dict['map_url'] = str(gps_resp.map_url())
+        dict['map_url'] = str(gps_resp.map_url() or '–')
 
     if gps_resp.mode >= 3:
-        dict['alt'] = str(gps_resp.alt)
-        dict['climb'] = str(gps_resp.climb)
-        dict['altitude'] = str(gps_resp.altitude())
+        dict['alt'] = str(gps_resp.alt or '–')
+        dict['climb'] = str(gps_resp.climb or '–')
+        dict['altitude'] = str(gps_resp.altitude() or '–')
         #dict['device'] = str(gps_resp.device())
 
     return dict
+
 
 def send_update():
     sensor_read(acc, mag, 'single', kill, nav_data)
@@ -178,7 +180,8 @@ def send_update():
         "sensor-data", {
             "type": "sensor.refresh",
             "text": json_data
-    })
+        }
+    )
 
 
 # -----------------------------------------------------------------------------
@@ -205,9 +208,9 @@ gpsd.connect(host="127.0.0.1", port=2947)
 
 while True:
     sg1 = stargate.objects.get(name='sg1')
-    if (sg1.mystatus.read_sensor_data == True):
+    if sg1.mystatus.read_sensor_data:
         send_update()
-        #print('update sent')
-    #else:
-        #print('update NOT sent')
+        # print('update sent')
+    # else:
+        # print('update NOT sent')
     time.sleep(2)
