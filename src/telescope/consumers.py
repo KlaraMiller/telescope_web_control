@@ -52,6 +52,10 @@ class TelescopeConsumer(AsyncConsumer):
             # save to database
             await self.store_target(data)
 
+        if data['command'] == 'confirm_star':
+            # save to database
+            await self.confirm_star(data)
+
         if data['command'] == 'observation':
             # save to database
             await self.store_target(data)
@@ -125,6 +129,18 @@ class TelescopeConsumer(AsyncConsumer):
             sg1.mytarget.star3 = data['target']
         sg1.mytarget.save()
         sg1.mystatus.save()
+
+    @database_sync_to_async
+    def confirm_star(self, data):
+        star_id = data['star_nr']
+        sg1 = stargate.objects.get(name='sg1')
+        if star_id == 'star1':
+            sg1.mytarget.star1_ok = 'finished'
+        if star_id == 'star2':
+            sg1.mytarget.star2_ok = 'finished'
+        if star_id == 'star3':
+            sg1.mytarget.star3_ok = 'finished'
+        sg1.mytarget.save()
 
     @database_sync_to_async
     def set_polaris(self):
