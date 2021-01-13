@@ -10,7 +10,9 @@ The project consists of two folders ‘src’ and ‘tmp’. ‘src’ consists 
 
 ### Folder names on zybo board
 Project folder: /home/debian/miller/webcontrol/venv/src
+
 Virtual Environment (venv) folder: /home/debian/miller/webcontrol/venv
+
 Activate venv: $ source /home/debian/miller/webcontrol/venv/bin/activate
 
 ### Starting server
