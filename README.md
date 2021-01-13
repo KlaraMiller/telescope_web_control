@@ -18,6 +18,9 @@ Activate venv: $ source /home/debian/miller/webcontrol/venv/bin/activate
 ### Starting server
 Server does not start automatically. To start server for the website to be online run following three scripts: manage.py, motor_control_and_observe.py, sensor_data.py (Further resources: ‘PyCharm Project Setup.pdf)
 
+#### Known issue
+Starting the server from the command line fails do to Python package management problems. Set up a PyCharm project as described in the guide and run the server with the run configuration. 
+
 ### Database
 Database can be cleared with script ‘reset_database.py’
 
